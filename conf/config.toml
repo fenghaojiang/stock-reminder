@@ -1,0 +1,6 @@
+version = "0.0.1"
+
+
+[stock]
+eastmoneyDest = "http://push2.eastmoney.com/api/qt/stock"
+stockList = [600183] #生益科技
