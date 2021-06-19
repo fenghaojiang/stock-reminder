@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/robfig/cron/v3"
 	"stock_reminder/action"
+	"stock_reminder/mail"
 )
 
 func main() {
@@ -15,5 +16,6 @@ func main() {
 		fmt.Println(err.Error())
 		return
 	}
+	go mail.SendMail()
 	cronJob.Start()
 }

@@ -9,12 +9,20 @@ import (
 type Config struct {
 	Version     string      `toml:"version"`
 	StockConfig StockConfig `toml:"stock"`
+	MailConfig  MailConfig  `toml:"smtp_mail"`
 }
 
 type StockConfig struct {
 	XueQiuUrl    string   `toml:"xueqiuDest"`
 	EastMoneyUrl string   `toml:"eastmoneyDest"`
 	StockList    []string `toml:"stockList"`
+}
+
+type MailConfig struct {
+	Host     string `toml:"host"`
+	Port     int    `toml:"port"`
+	Account  string `toml:"account"`
+	Password string `toml:"password"`
 }
 
 var Conf Config
