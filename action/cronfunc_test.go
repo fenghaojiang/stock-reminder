@@ -1,7 +1,15 @@
 package action
 
-import "testing"
+import (
+	"fmt"
+	_ "stock_reminder/conf"
+	"testing"
+)
 
-func testOnGetStockInfo(t *testing.T) {
-	GetStockInfo()
+func TestOnGetStockInfo(t *testing.T) {
+	err := sendRequest("SH600183")
+	if err != nil {
+		fmt.Println(err.Error())
+		t.FailNow()
+	}
 }

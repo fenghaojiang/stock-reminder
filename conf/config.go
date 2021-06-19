@@ -12,8 +12,9 @@ type Config struct {
 }
 
 type StockConfig struct {
-	EastMoneyUrl string  `toml:"eastmoneyDest"`
-	StockList    []int64 `toml:"stockList"`
+	XueQiuUrl    string   `toml:"xueqiuDest"`
+	EastMoneyUrl string   `toml:"eastmoneyDest"`
+	StockList    []string `toml:"stockList"`
 }
 
 var Conf Config
