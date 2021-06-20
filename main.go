@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/robfig/cron/v3"
 	"stock_reminder/action"
 	"stock_reminder/mail"
+
+	"github.com/robfig/cron/v3"
 )
 
 func main() {
@@ -17,5 +18,6 @@ func main() {
 		return
 	}
 	go mail.SendMail()
+	defer mail.CloseMailChan()
 	cronJob.Start()
 }

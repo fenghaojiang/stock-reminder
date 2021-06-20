@@ -13,9 +13,14 @@ type Config struct {
 }
 
 type StockConfig struct {
-	XueQiuUrl    string   `toml:"xueqiuDest"`
-	EastMoneyUrl string   `toml:"eastmoneyDest"`
-	StockList    []string `toml:"stockList"`
+	XueQiuUrl    string  `toml:"xueqiuDest"`
+	EastMoneyUrl string  `toml:"eastmoneyDest"`
+	StockList    []Stock `toml:"stockList"`
+}
+
+type Stock struct {
+	StockCode string
+	Price     float64
 }
 
 type MailConfig struct {
