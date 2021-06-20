@@ -42,7 +42,7 @@ func init() {
 }
 
 func parse() error {
-	if _, err := toml.DecodeFile("./config.toml", &Conf); err != nil {
+	if _, err := toml.DecodeFile("/home/opc/stock-reminder/conf/config.toml", &Conf); err != nil {
 		return err
 	}
 	return nil
