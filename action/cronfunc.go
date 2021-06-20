@@ -24,9 +24,10 @@ func NewGetValues(stockCode string) *url.Values {
 func GetStockInfo() {
 	ch := make(chan struct{})
 	var eg errgroup.Group
-	for _, stockCode := range conf.Conf.StockConfig.StockList {
+	for _, stock := range conf.Conf.StockConfig.StockList {
 		ch <- struct{}{}
-		code := stockCode
+		code := stock.StockCode
+		name := stock.StockName
 		eg.Go(func() error {
 			defer func() {
 				<-ch
@@ -36,14 +37,19 @@ func GetStockInfo() {
 				fmt.Println(err.Error())
 				return err
 			}
-			code := gjson.Get(stockInfo, "data.symbol")
+			sc := gjson.Get(stockInfo, "data.symbol")
 			current := gjson.Get(stockInfo, "data.current")
 			mail.SendMailSignal(model.StockInfo{
-				StockCode: code.String(),
+				StockCode: sc.String(),
+				StockName: name,
 				Current:   current.Float(),
 			})
 			return nil
 		})
+	}
+	err := eg.Wait()
+	if err != nil {
+
 	}
 }
 

@@ -4,7 +4,7 @@ version = "0.0.1"
 [stock]
 xueqiuDest = "https://stock.xueqiu.com/v5/stock/realtime/pankou.json"
 eastmoneyDest = "http://push2.eastmoney.com/api/qt/stock"
-stockList = ["SH600183"] #生益科技
+stockList = [["SH600183", "生益科技", 21.50], ["SH600570", "恒生电子", 87.00]] #生益科技 恒生电子
 
 
 [smtp_mail]
@@ -12,3 +12,6 @@ host = "smtp.qq.com"
 port = 465
 account = "xxx@qq.com"
 password = "123456"
+receivers = ["123123@qq.com", "456456@qq.com"]
+
+

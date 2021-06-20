@@ -13,21 +13,23 @@ type Config struct {
 }
 
 type StockConfig struct {
-	XueQiuUrl    string  `toml:"xueqiuDest"`
-	EastMoneyUrl string  `toml:"eastmoneyDest"`
-	StockList    []Stock `toml:"stockList"`
+	XueQiuUrl    string            `toml:"xueqiuDest"`
+	EastMoneyUrl string            `toml:"eastmoneyDest"`
+	StockList    []StockExpectInfo `toml:"stockList"`
 }
 
-type Stock struct {
+type StockExpectInfo struct {
 	StockCode string
+	StockName string
 	Price     float64
 }
 
 type MailConfig struct {
-	Host     string `toml:"host"`
-	Port     int    `toml:"port"`
-	Account  string `toml:"account"`
-	Password string `toml:"password"`
+	Host      string   `toml:"host"`
+	Port      int      `toml:"port"`
+	Account   string   `toml:"account"`
+	Password  string   `toml:"password"`
+	Receivers []string `toml:"receivers"`
 }
 
 var Conf Config
