@@ -4,8 +4,8 @@
 
 ```shell script
 docker build -t stock_reminder .
-docker run -itd --rm --name stock-reminder stock_reminder
-# -itd中的d是后台运行的意思，不想后台运行改成-it
+docker run -it --rm -v /home/opc/stock-reminder/conf/config.toml:/var/data/conf/config.toml  --name stock-reminder stock_reminder
+# -v 将配置文件config.toml挂载到容器内, 本人config.toml配置文件是在/home/opc/stock-reminder/conf/config.toml中，对应修改即可
 ```
 
 #### 关闭
