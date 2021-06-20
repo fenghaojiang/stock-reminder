@@ -26,8 +26,9 @@ func GetStockInfo() {
 	var eg errgroup.Group
 	for _, stock := range conf.Conf.StockConfig.StockList {
 		ch <- struct{}{}
-		code := stock.StockCode
-		name := stock.StockName
+		code := stock[0].(string)
+		name := stock[1].(string)
+		price := stock[2].(float64)
 		eg.Go(func() error {
 			defer func() {
 				<-ch
@@ -39,11 +40,14 @@ func GetStockInfo() {
 			}
 			sc := gjson.Get(stockInfo, "data.symbol")
 			current := gjson.Get(stockInfo, "data.current")
-			mail.SendMailSignal(model.StockInfo{
-				StockCode: sc.String(),
-				StockName: name,
-				Current:   current.Float(),
-			})
+			curFloat := current.Float()
+			if curFloat <= price {
+				mail.SendMailSignal(model.StockInfo{
+					StockCode: sc.String(),
+					StockName: name,
+					Current:   curFloat,
+				})
+			}
 			return nil
 		})
 	}

@@ -13,15 +13,9 @@ type Config struct {
 }
 
 type StockConfig struct {
-	XueQiuUrl    string            `toml:"xueqiuDest"`
-	EastMoneyUrl string            `toml:"eastmoneyDest"`
-	StockList    []StockExpectInfo `toml:"stockList"`
-}
-
-type StockExpectInfo struct {
-	StockCode string
-	StockName string
-	Price     float64
+	XueQiuUrl    string          `toml:"xueqiuDest"`
+	EastMoneyUrl string          `toml:"eastmoneyDest"`
+	StockList    [][]interface{} `toml:"stockList"`
 }
 
 type MailConfig struct {
@@ -41,8 +35,10 @@ func init() {
 	}
 }
 
+// /var/data/conf/config.toml
+
 func parse() error {
-	if _, err := toml.DecodeFile("/var/data/conf/config.toml", &Conf); err != nil {
+	if _, err := toml.DecodeFile("./conf/config.toml", &Conf); err != nil {
 		return err
 	}
 	return nil
