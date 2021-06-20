@@ -17,7 +17,7 @@ func main() {
 		fmt.Println(err.Error())
 		return
 	}
-	go mail.SendMail()
+	go mail.HandleSendMail()
 	defer mail.CloseMailChan()
 	cronJob.Start()
 }

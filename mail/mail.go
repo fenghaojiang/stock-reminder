@@ -24,7 +24,7 @@ func SendMailSignal(info model.StockInfo) {
 	mailChan <- info
 }
 
-func SendMail() {
+func HandleSendMail() {
 	for {
 		select {
 		case stockInfo := <-mailChan:
