@@ -2,15 +2,17 @@ package action
 
 import (
 	"fmt"
-	"github.com/tidwall/gjson"
-	"golang.org/x/sync/errgroup"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"stock_reminder/conf"
 	"stock_reminder/mail"
 	"stock_reminder/model"
+	"strconv"
 	"strings"
+
+	"github.com/tidwall/gjson"
+	"golang.org/x/sync/errgroup"
 )
 
 var client = &http.Client{}
@@ -28,7 +30,7 @@ func GetStockInfo() {
 		ch <- struct{}{}
 		code := stock[0].(string)
 		name := stock[1].(string)
-		price := stock[2].(float64)
+		priceStr := stock[2].(string)
 		eg.Go(func() error {
 			defer func() {
 				<-ch
@@ -41,6 +43,11 @@ func GetStockInfo() {
 			sc := gjson.Get(stockInfo, "data.symbol")
 			current := gjson.Get(stockInfo, "data.current")
 			curFloat := current.Float()
+			price, err := strconv.ParseFloat(priceStr, 64)
+			if err != nil {
+				fmt.Println(err.Error())
+				return err
+			}
 			if curFloat <= price {
 				mail.SendMailSignal(model.StockInfo{
 					StockCode: sc.String(),
