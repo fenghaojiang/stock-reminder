@@ -63,8 +63,10 @@ func GetStockInfo() {
 	}
 	err := eg.Wait()
 	if err != nil {
-
+		fmt.Println(err.Error())
+		return
 	}
+
 }
 
 func sendRequest(stockCode string) (string, error) {
