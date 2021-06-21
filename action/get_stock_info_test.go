@@ -2,6 +2,7 @@ package action
 
 import (
 	"fmt"
+	"github.com/tidwall/gjson"
 	"stock_reminder/conf"
 	"testing"
 )
@@ -13,5 +14,6 @@ func TestSendRequest(t *testing.T) {
 		fmt.Println(err.Error())
 		t.FailNow()
 	}
-	fmt.Println(stockInfo)
+	fmt.Println(gjson.Get(stockInfo, "data.symbol").String())
+	fmt.Println(gjson.Get(stockInfo, "data.current").Float())
 }
