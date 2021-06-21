@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/gomail.v2"
+	"stock_reminder/action"
 	"stock_reminder/conf"
 	"stock_reminder/model"
 	"strconv"
@@ -25,6 +26,7 @@ func SendMailSignal(info model.StockInfo) {
 }
 
 func HandleSendMail() {
+	fmt.Println("HandleSendMail Goroutine Start")
 	for {
 		select {
 		case stockInfo := <-mailChan:
@@ -40,17 +42,19 @@ func sendEmail(info model.StockInfo) error {
 	var eg errgroup.Group
 	for _, receiver := range conf.Conf.MailConfig.Receivers {
 		receiverUserInfo := receiver
-		eg.Go(func() error {
-			msg := gomail.NewMessage()
-			msg.SetHeader("From", conf.Conf.MailConfig.Account)
-			msg.SetHeader("To", receiverUserInfo)
-			msg.SetHeader("Subject", info.StockCode+info.StockName+"现价:"+strconv.FormatFloat(info.Current, 'f', 2, 64))
-			err := mailClient.DialAndSend(msg)
-			if err != nil {
-				return err
-			}
-			return nil
-		})
+		if !action.IsSendToday(receiverUserInfo) {
+			eg.Go(func() error {
+				msg := gomail.NewMessage()
+				msg.SetHeader("From", conf.Conf.MailConfig.Account)
+				msg.SetHeader("To", receiverUserInfo)
+				msg.SetHeader("Subject", info.StockCode+info.StockName+"现价:"+strconv.FormatFloat(info.Current, 'f', 2, 64))
+				err := mailClient.DialAndSend(msg)
+				if err != nil {
+					return err
+				}
+				return nil
+			})
+		}
 	}
 	err := eg.Wait()
 	if err != nil {
