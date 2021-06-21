@@ -20,4 +20,5 @@ func main() {
 	go mail.HandleSendMail()
 	defer mail.CloseMailChan()
 	cronJob.Start()
+	select {}
 }

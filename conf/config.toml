@@ -10,7 +10,7 @@ stockList = [["SH600183", "生益科技", "21.50"], ["SH600570", "恒生电子",
 [smtp_mail]
 host = "smtp.qq.com"
 port = 465
-account = "xxx@qq.com"
+account = "123123@qq.com"
 password = "123456"
 receivers = ["123123@qq.com", "456456@qq.com"]
 
