@@ -10,6 +10,7 @@ import (
 	"stock_reminder/model"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/tidwall/gjson"
 	"golang.org/x/sync/errgroup"
@@ -40,6 +41,8 @@ func GetStockInfo() {
 				fmt.Println(err.Error())
 				return err
 			}
+			nowUnix := time.Now().String()
+			fmt.Println("timeNow: " + nowUnix + " " + "stockInfo: " + stockInfo)
 			sc := gjson.Get(stockInfo, "data.symbol")
 			current := gjson.Get(stockInfo, "data.current")
 			curFloat := current.Float()
