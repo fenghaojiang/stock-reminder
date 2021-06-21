@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/gomail.v2"
-	"stock_reminder/action"
 	"stock_reminder/conf"
 	"stock_reminder/model"
+	"stock_reminder/utils"
 	"strconv"
 )
 
@@ -42,7 +42,7 @@ func sendEmail(info model.StockInfo) error {
 	var eg errgroup.Group
 	for _, receiver := range conf.Conf.MailConfig.Receivers {
 		receiverUserInfo := receiver
-		if !action.IsSendToday(receiverUserInfo) {
+		if !utils.IsSendToday(receiverUserInfo) {
 			eg.Go(func() error {
 				msg := gomail.NewMessage()
 				msg.SetHeader("From", conf.Conf.MailConfig.Account)

@@ -88,5 +88,6 @@ func sendRequest(stockCode string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Println(string(body)) //stock info
 	return string(body), nil
 }

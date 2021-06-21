@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"stock_reminder/action"
 	"stock_reminder/mail"
+	"stock_reminder/utils"
 
 	"github.com/robfig/cron/v3"
 )
@@ -12,7 +13,7 @@ func main() {
 	options := cron.NewParser(cron.Second | cron.Minute |
 		cron.Hour | cron.Dom | cron.Month | cron.DowOptional | cron.Descriptor)
 	cronJob := cron.New(cron.WithParser(options), cron.WithChain())
-	_, err := cronJob.AddFunc("0 0 9 * * *", action.ResetIsSendMap)
+	_, err := cronJob.AddFunc("0 0 9 * * *", utils.ResetIsSendMap)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
