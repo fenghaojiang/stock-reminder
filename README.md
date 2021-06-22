@@ -10,11 +10,15 @@ docker run -itd --rm -v /home/opc/stock-reminder/conf/config.toml:/var/data/conf
 
 #### 关闭
 
+#### stop stock-reminder
+
 ```shell script
 docker stop stock-reminder
 ```
 
 #### 删除所有none镜像
+
+#### Delete All none images
 
 ```shell script
 docker rmi $(docker images | awk '$1=="<none>"{print $3}')
