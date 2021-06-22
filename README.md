@@ -20,7 +20,7 @@
 docker build -t stock_reminder .
 docker run -itd --rm -v /home/opc/stock-reminder/conf/config.toml:/var/data/conf/config.toml  --name stock-reminder stock_reminder
 ```
--v 将配置文件config.toml挂载到容器内, 本人config.toml配置文件是在/home/opc/stock-reminder/conf/config.toml中，对应修改main.go中的config文件路径即可(change config directory in main.go)  
+-v 将配置文件config.toml挂载到容器内, 本人config.toml配置文件是在/home/opc/stock-reminder/conf/config.toml中，对应修改main.go中的config文件路径即可(modify config directory in main.go)  
 
 
 
