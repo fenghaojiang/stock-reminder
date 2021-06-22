@@ -9,6 +9,7 @@ import (
 	"stock_reminder/model"
 	"stock_reminder/utils"
 	"strconv"
+	"time"
 )
 
 var mailChan chan model.StockInfo
@@ -34,6 +35,8 @@ func HandleSendMail() {
 			if err != nil {
 				fmt.Println(err.Error())
 			}
+		default:
+			time.Sleep(5 * time.Second)
 		}
 	}
 }

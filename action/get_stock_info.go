@@ -25,13 +25,13 @@ func NewGetValues(stockCode string) *url.Values {
 }
 
 func GetStockInfo() {
-	ch := make(chan struct{})
+	ch := make(chan struct{}, 16)
 	var eg errgroup.Group
 	for _, stock := range conf.Conf.StockConfig.StockList {
-		ch <- struct{}{}
 		code := stock[0].(string)
 		name := stock[1].(string)
 		priceStr := stock[2].(string)
+		ch <- struct{}{}
 		eg.Go(func() error {
 			defer func() {
 				<-ch
