@@ -42,11 +42,11 @@ func GetStockInfo() {
 				return err
 			}
 			nowUnix := time.Now().String()
-			fmt.Println("timeNow: " + nowUnix + " " + "stockInfo: " + stockInfo)
 			sc := gjson.Get(stockInfo, "data.symbol")
 			current := gjson.Get(stockInfo, "data.current")
 			curFloat := current.Float()
 			price, err := strconv.ParseFloat(priceStr, 64)
+			fmt.Println("timeNow:", nowUnix, "\t"+"stockCode: ", sc, "\t"+"current", current)
 			if err != nil {
 				fmt.Println(err.Error())
 				return err
