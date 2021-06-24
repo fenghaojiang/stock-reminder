@@ -3,7 +3,7 @@ package utils
 import "sync"
 
 var isSendMap map[string]bool
-var mu sync.Mutex
+var mu sync.RWMutex
 
 func init() {
 	isSendMap = make(map[string]bool)
@@ -16,7 +16,13 @@ func ResetIsSendMap() {
 }
 
 func IsSendToday(mailID string) bool {
-	mu.Lock()
-	defer mu.Unlock()
+	mu.RLock()
+	defer mu.RUnlock()
 	return isSendMap[mailID]
+}
+
+func SendToday(mailID string) {
+	mu.Lock()
+	isSendMap[mailID] = true
+	mu.Unlock()
 }

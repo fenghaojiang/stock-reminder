@@ -3,13 +3,14 @@ package mail
 import (
 	"crypto/tls"
 	"fmt"
-	"golang.org/x/sync/errgroup"
-	"gopkg.in/gomail.v2"
 	"stock_reminder/conf"
 	"stock_reminder/model"
 	"stock_reminder/utils"
 	"strconv"
 	"time"
+
+	"golang.org/x/sync/errgroup"
+	"gopkg.in/gomail.v2"
 )
 
 var mailChan chan model.StockInfo
@@ -55,6 +56,7 @@ func sendEmail(info model.StockInfo) error {
 				if err != nil {
 					return err
 				}
+				utils.SendToday(receiverUserInfo)
 				return nil
 			})
 		}
