@@ -51,7 +51,7 @@ func GetStockInfo() {
 				fmt.Println(err.Error())
 				return err
 			}
-			if curFloat <= price {
+			if curFloat <= price && curFloat != float64(0.0) { //查不到
 				mail.SendMailSignal(model.StockInfo{
 					StockCode: sc.String(),
 					StockName: name,
