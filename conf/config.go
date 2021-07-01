@@ -36,6 +36,9 @@ func init() {
 }
 
 func parse() error {
+	// if _, err := toml.DecodeFile("./conf/config.toml", &Conf); err != nil { //test in local
+	// 	return err
+	// }
 	if _, err := toml.DecodeFile("/var/data/conf/config.toml", &Conf); err != nil {
 		return err
 	}
