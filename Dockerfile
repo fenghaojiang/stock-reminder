@@ -11,7 +11,8 @@ RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
 
 
 FROM alpine:latest
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates \
+    && echo 'Asia/Shanghai' >/etc/timezone
 WORKDIR /root/
 COPY --from=builder /go/src/app/stock_reminder .
 
