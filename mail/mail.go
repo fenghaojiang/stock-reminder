@@ -46,7 +46,8 @@ func sendEmail(info model.StockInfo) error {
 	var eg errgroup.Group
 	for _, receiver := range conf.Conf.MailConfig.Receivers {
 		receiverUserInfo := receiver
-		if !utils.IsSendToday(info.StockCode) {
+		uniCode := info.StockCode + "_" + receiverUserInfo
+		if !utils.IsSendToday(uniCode) {
 			eg.Go(func() error {
 				msg := gomail.NewMessage()
 				msg.SetHeader("From", conf.Conf.MailConfig.Account)
@@ -56,7 +57,7 @@ func sendEmail(info model.StockInfo) error {
 				if err != nil {
 					return err
 				}
-				utils.SendToday(receiverUserInfo)
+				utils.SendToday(uniCode)
 				return nil
 			})
 		}
