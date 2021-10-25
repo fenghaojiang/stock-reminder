@@ -2,7 +2,7 @@
 # stock-reminder
 
 
-[!https://goreportcard.com/report/github.com/fenghaojiang/stock-reminder](https://goreportcard.com/report/github.com/fenghaojiang/stock-reminder)
+![https://goreportcard.com/report/github.com/fenghaojiang/stock-reminder](https://goreportcard.com/report/github.com/fenghaojiang/stock-reminder)
 
 #### **投资有风险，代码仅供参考学习**  
 
